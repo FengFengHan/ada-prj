@@ -13,9 +13,11 @@ namespace DemoApp
     {
         public Node[] nodes;
 		public Arc[] arcs;
+		// with this you can control the aspect ratio of the drawing
 		public float r = 0.7f;
 		
 		public int[,] pathCoords;
+		// the default path displayed, -1 for none
 		public int sel = -1;
 		
 		public String[] pathStrings;
@@ -23,7 +25,7 @@ namespace DemoApp
         public MainForm()
         {
             InitializeComponent();
-			
+			// the array of nodes
 			nodes = new Node[6] { 
 				new Node(new Point(100, 200), "1"), 
 				new Node(new Point(300, 100), "2"),
@@ -32,7 +34,7 @@ namespace DemoApp
 				new Node(new Point(500, 300), "5"),
 				new Node(new Point(700, 200), "6")
 			};
-			
+			// the array of arcs
 			arcs = new Arc[8] {
 				new Arc(new Point(100, 200), new Point(300, 100), "a"),
 				new Arc(new Point(100, 200), new Point(300, 300), "b"),
@@ -43,7 +45,7 @@ namespace DemoApp
 				new Arc(new Point(500, 100), new Point(700, 200), "g"),
 				new Arc(new Point(500, 300), new Point(700, 200), "h"),
 			};
-			
+			// the coordinates of the valid paths
 			pathCoords = new int[8,8] {
 				{1, 0, 0, 1, 0, 0, 1, 0},
 				{0, 1, 0, 0, 1, 0, 0, 1},
@@ -54,7 +56,7 @@ namespace DemoApp
 				{1, 0, 1, 0, 1, 1, 1, 0},
 				{0, 1, 1, 1, 0, 1, 0, 1}
 			};
-			
+			// the name of the valid paths
 			pathStrings = new String[8] { "adg", 
 				"beh", 
 				"aceh", 
@@ -63,7 +65,7 @@ namespace DemoApp
 				"befg", 
 				"acefg", 
 				"bcdfh" };
-			
+			// populate the ListBox of valid paths
 			for(int i=0; i<pathStrings.Length; i++) {
 				listBox1.Items.Add(pathStrings[i]);
 			}
@@ -107,7 +109,7 @@ namespace DemoApp
 				             titleBrush,
 				             new Rectangle(200, 5, 600, 100));
 			}
-			
+			// draw the arcs
 			for(int i=0; i<arcs.Length; i++) {
 				g.DrawLine((sel == -1 || pathCoords[sel,i] != 1) ? arcPen : arcSelPen, 
 				           new PointF(arcs[i].a.X * r, arcs[i].a.Y * r), 
@@ -120,7 +122,7 @@ namespace DemoApp
 				                            40 * r, 
 				                            40 * r));
 			}
-			
+			// draw the nodes
 			for(int i=0; i<nodes.Length; i++) {
 				g.FillEllipse(nodeBrush, 
 				              new RectangleF((nodes[i].pos.X-20) * r, 
@@ -144,6 +146,10 @@ namespace DemoApp
             arcPen.Dispose();
 			nodePen.Dispose();
 			nodeBrush.Dispose();
+			nameFont.Dispose();
+			nameBrush.Dispose();
+			titleFont.Dispose();
+			titleBrush.Dispose();
         }
     }
 }
