@@ -13,9 +13,9 @@ namespace DemoApp
 	public struct Node
 	{
 		public Point pos;
-		public Char name;
+		public String name;
 		
-		public Node(Point pos, Char name)
+		public Node(Point pos, String name)
 		{
 			this.pos = pos;
 			this.name = name;
@@ -24,13 +24,13 @@ namespace DemoApp
 	
 	public struct Arc
 	{
-		public Point x, y;
-		public Char name;
+		public Point a, b;
+		public String name;
 		
-		public Arc(Point x, Point y, Char name)
+		public Arc(Point a, Point b, String name)
 		{
-			this.x = x;
-			this.y = y;
+			this.a = a;
+			this.b = b;
 			this.name = name;
 		}
 	}
