@@ -11,10 +11,32 @@ namespace DemoApp
 {
     public partial class MainForm : Form
     {
+        public Node[] nodes;
+		public Arc[] arcs;
+		
         public MainForm()
         {
             InitializeComponent();
 			
+			nodes = new Node[6] { 
+				new Node(new Point(100, 200), '1'), 
+				new Node(new Point(300, 100), '2'),
+				new Node(new Point(300, 300), '3'),
+				new Node(new Point(500, 100), '4'),
+				new Node(new Point(500, 300), '5'),
+				new Node(new Point(700, 200), '6')
+			};
+			
+			arcs = new Arc[8] {
+				new Arc(new Point(100, 200), new Point(300, 100), 'a'),
+				new Arc(new Point(100, 200), new Point(300, 300), 'b'),
+				new Arc(new Point(300, 100), new Point(300, 300), 'c'),
+				new Arc(new Point(300, 100), new Point(500, 100), 'd'),
+				new Arc(new Point(300, 300), new Point(500, 300), 'e'),
+				new Arc(new Point(500, 100), new Point(500, 300), 'f'),
+				new Arc(new Point(500, 100), new Point(700, 200), 'g'),
+				new Arc(new Point(500, 300), new Point(700, 200), 'h'),
+			};
         }
 
         private void exitMenuItem_Click(object sender, EventArgs e)
