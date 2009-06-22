@@ -16,7 +16,7 @@ namespace DemoApp
 		public float r = 0.7f;
 		
 		public int[,] pathCoords;
-		public int sel = 0;
+		public int sel = -1;
 		
 		public String[] pathStrings;
 		
@@ -98,8 +98,18 @@ namespace DemoApp
 			Font nameFont = new Font("Arial", (int) 16 * r);
     		SolidBrush nameBrush = new SolidBrush(Color.Black);
 			
+			Font titleFont = new Font("Arial", (int) 16 );
+    		SolidBrush titleBrush = new SolidBrush(Color.Black);
+			
+			if (sel != -1) {
+				g.DrawString("Current path: " + pathStrings[sel],
+				             titleFont,
+				             titleBrush,
+				             new Rectangle(200, 5, 600, 100));
+			}
+			
 			for(int i=0; i<arcs.Length; i++) {
-				g.DrawLine(pathCoords[sel,i] == 1 ? arcSelPen : arcPen, 
+				g.DrawLine((sel == -1 || pathCoords[sel,i] != 1) ? arcPen : arcSelPen, 
 				           new PointF(arcs[i].a.X * r, arcs[i].a.Y * r), 
 				           new PointF(arcs[i].b.X * r, arcs[i].b.Y * r));
 				g.DrawString(arcs[i].name, 
