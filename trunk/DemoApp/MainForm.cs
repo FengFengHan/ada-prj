@@ -13,9 +13,12 @@ namespace DemoApp
     {
         public Node[] nodes;
 		public Arc[] arcs;
-		public int[,] paths;
+		public float r = 0.7f;
+		
+		public int[,] pathCoords;
 		public int sel = 0;
-		public float r = 1f;
+		
+		public String[] pathStrings;
 		
         public MainForm()
         {
@@ -40,7 +43,8 @@ namespace DemoApp
 				new Arc(new Point(500, 100), new Point(700, 200), "g"),
 				new Arc(new Point(500, 300), new Point(700, 200), "h"),
 			};
-			paths = new int[8,8] {
+			
+			pathCoords = new int[8,8] {
 				{1, 0, 0, 1, 0, 0, 1, 0},
 				{0, 1, 0, 0, 1, 0, 0, 1},
 				{1, 0, 1, 0, 1, 0, 0, 1},
@@ -50,6 +54,19 @@ namespace DemoApp
 				{1, 0, 1, 0, 1, 1, 1, 0},
 				{0, 1, 1, 1, 0, 1, 0, 1}
 			};
+			
+			pathStrings = new String[8] { "adg", 
+				"beh", 
+				"aceh", 
+				"adfh", 
+				"bcdg", 
+				"befg", 
+				"acefg", 
+				"bcdfh" };
+			
+			for(int i=0; i<pathStrings.Length; i++) {
+				listBox1.Items.Add(pathStrings[i]);
+			}
         }
 
         private void exitMenuItem_Click(object sender, EventArgs e)
@@ -62,6 +79,12 @@ namespace DemoApp
             AboutForm about = new AboutForm();
             about.Show();
         }
+		
+		private void listBox1_DoubleClick(object sender, EventArgs e)
+		{
+			this.sel = this.listBox1.SelectedIndex;
+			this.pictureBox1.Invalidate();
+		}
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
@@ -76,7 +99,7 @@ namespace DemoApp
     		SolidBrush nameBrush = new SolidBrush(Color.Black);
 			
 			for(int i=0; i<arcs.Length; i++) {
-				g.DrawLine(paths[sel,i] == 1 ? arcSelPen : arcPen, 
+				g.DrawLine(pathCoords[sel,i] == 1 ? arcSelPen : arcPen, 
 				           new PointF(arcs[i].a.X * r, arcs[i].a.Y * r), 
 				           new PointF(arcs[i].b.X * r, arcs[i].b.Y * r));
 				g.DrawString(arcs[i].name, 
